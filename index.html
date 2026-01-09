@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Блокадная газета: Статистика потерь 1941-1943</title>
+    <link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* ВСЕ СТИЛИ ЗДЕСЬ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Old Standard TT', 'Times New Roman', Times, serif;
+            background-color: #e8dfd3;
+            color: #2c1810;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .newspaper-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #f5f0e6;
+            padding: 40px 50px;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+            border: 1px solid #c4b49c;
+            background-image: 
+                linear-gradient(90deg, transparent 79px, #ab9a7a 79px, transparent 81px),
+                linear-gradient(#eee .1em, transparent .1em);
+            background-size: 100% 1.2em;
+        }
+        .newspaper-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            border-bottom: 3px double #8b4513;
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #8b4513;
+            margin-bottom: 10px;
+        }
+        .newspaper-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin: 20px 0;
+            color: #2c1810;
+        }
+        .header-subtitle {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+            color: #5d4037;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        .price { font-weight: bold; color: #8b4513; }
+        .article-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .article-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            color: #2c1810;
+        }
+        .article-subtitle {
+            font-size: 1.2em;
+            color: #5d4037;
+            font-style: italic;
+            border-top: 1px solid #c4b49c;
+            padding-top: 10px;
+        }
+        .columns-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+        }
+        .column {
+            text-align: justify;
+            font-size: 1.15em;
+            line-height: 1.8;
+        }
+        .drop-cap::first-letter {
+            float: left;
+            font-size: 4.5em;
+            line-height: 0.8;
+            margin: 0.1em 0.1em 0 0;
+            font-family: 'Playfair Display', serif;
+            color: #8b4513;
+        }
+        .highlight-number {
+            font-weight: bold;
+            color: #8b4513;
+            font-size: 1.1em;
+        }
+        .year-block {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(245, 240, 230, 0.7);
+            border-left: 4px solid #8b4513;
+        }
+        .year-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8em;
+            color: #5d4037;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #c4b49c;
+            padding-bottom: 8px;
+        }
+        .stat-box {
+            background: rgba(255, 250, 240, 0.9);
+            border: 1px solid #c4b49c;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .stat-box h4 {
+            font-size: 1.1em;
+            color: #5d4037;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .stats-list {
+            list-style-type: none;
+        }
+        .stats-list li {
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px dashed #c4b49c;
+            display: flex;
+            justify-content: space-between;
+        }
+        .stat-label { font-weight: normal; color: #5d4037; }
+        .stat-number {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #8b4513;
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .fact-box {
+            background: rgba(245, 240, 230, 0.9);
+            border: 1px solid #c4b49c;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .fact-box h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: #5d4037;
+            text-align: center;
+        }
+        .facts-list {
+            list-style-type: none;
+        }
+        .facts-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .facts-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #8b4513;
+        }
+        .article-footer {
+            margin: 40px 0;
+            text-align: center;
+        }
+        .memorial-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8b4513, transparent);
+            margin: 20px 0;
+        }
+        .memorial-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #8b4513;
+            padding: 10px 0;
+        }
+        .signature {
+            margin-top: 20px;
+            font-style: italic;
+            color: #5d4037;
+            font-size: 0.95em;
+        }
+        .newspaper-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px double #8b4513;
+        }
+        .footer-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            color: #5d4037;
+            margin-bottom: 30px;
+        }
+        .qr-placeholder {
+            text-align: center;
+            padding: 30px;
+            background: rgba(245, 240, 230, 0.7);
+            border: 2px dashed #8b4513;
+        }
+        .qr-area {
+            display: inline-block;
+            padding: 20px;
+            background: white;
+        }
+        @media (max-width: 900px) {
+            .columns-container { grid-template-columns: 1fr; }
+            .newspaper-title { font-size: 2.5em; }
+            .article-title { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="newspaper-container">
+        <!-- Шапка газеты -->
+        <header class="newspaper-header">
+            <div class="header-top">
+                <span class="header-label">СПЕЦИАЛЬНЫЙ ВЫПУСК</span>
+                <span class="header-date">СЕНТЯБРЬ 1943 ГОДА</span>
+            </div>
+            <h1 class="newspaper-title">ЛЕНИНГРАДСКАЯ ПРАВДА</h1>
+            <div class="header-subtitle">
+                <span>Орган Ленинградского городского комитета ВКП(б) и Городского Совета депутатов трудящихся</span>
+                <span class="price">Цена 30 коп.</span>
+            </div>
+        </header>
+
+        <!-- Основное содержимое -->
+        <main class="article-content">
+            <!-- Заголовок статьи -->
+            <div class="article-header">
+                <h2 class="article-title">ТРИ ГОДА БЛОКАДЫ В ЦИФРАХ</h2>
+                <p class="article-subtitle">Статистический отчёт о потерях Ленинграда за 1941-1943 годы</p>
+            </div>
+
+            <!-- Колонки статьи -->
+            <div class="columns-container">
+                <!-- Левая колонка -->
+                <div class="column">
+                    <p class="drop-cap">Третий год осады. Город продолжает жить и сражаться. За плечами — 900 дней борьбы с голодом, холодом и смертью. Сегодня мы публикуем сводные данные, которые показывают, какой ценой далась нам эта оборона.</p>
+                    
+                    <div class="year-block">
+                        <h3 class="year-title">1941 ГОД: НАЧАЛО АДА</h3>
+                        <p><strong>8 сентября</strong> — замкнулось кольцо блокады. В городе осталось <span class="highlight-number">2,5 млн жителей</span> и около <span class="highlight-number">340 тысяч войск</span> Ленфронта.</p>
+                        
+                        <div class="stat-box">
+                            <h4>Потери с сентября по декабрь 1941:</h4>
+                            <ul class="stats-list">
+                                <li><span class="stat-label">Гражданское население:</span> <span class="stat-number">53 000</span> человек</li>
+                                <li><span class="stat-label">Войска Ленфронта:</span> <span class="stat-number">> 100 000</span> человек</li>
+                                <li><span class="stat-label">Норма хлеба (декабрь):</span> <span class="stat-number">125 г</span> для иждивенцев</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="fact-box">
+                        <h3>🎯 КЛЮЧЕВЫЕ СОБЫТИЯ 1941</h3>
+                        <ul class="facts-list">
+                            <li>Первая бомбардировка города — 8 сентября</li>
+                            <li>Пожар Бадаевских складов — 8-10 сентября</li>
+                            <li>Начало эвакуации по "Дороге жизни" — 22 ноября</li>
+                            <li>Падение норм хлеба до минимума — 20 ноября</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Правая колонка -->
+                <div class="column">
+                    <div class="year-block">
+                        <h3 class="year-title">1942 ГОД: ПИК СМЕРТНОСТИ</h3>
+                        <p>Самая страшная зима. Именно в этот период пришлось <span class="highlight-number">более 85%</span> всех блокадных смертей.</p>
+                        
+                        <div class="stat-box">
+                            <h4>Потери за 1942 год:</h4>
+                            <ul class="stats-list">
+                                <li><span class="stat-label">Гражданское население:</span> <span class="stat-number">≈ 650 000</span> человек</li>
+                                <li><span class="stat-label">Ежедневно умирало:</span> <span class="stat-number">3 000-4 000</span> человек</li>
+                                <li><span class="stat-label">В январе-феврале:</span> <span class="stat-number">до 7 000</span> человек в день</li>
+                                <li><span class="stat-label">Всего умерло от голода:</span> <span class="stat-number">632 253</span> человека</li>
+                                <li><span class="stat-label">Погибло от обстрелов:</span> <span class="stat-number">16 747</span> человек</li>
+                            </ul>
+                        </div>
+                        
+                        <p>К концу 1942 года в городе оставалось лишь <span class="highlight-number">≈ 600 000</span> жителей. Было эвакуировано около 1 млн человек.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Подпись и призыв -->
+            <div class="article-footer">
+                <div class="memorial-line"></div>
+                <p class="memorial-text">ЭТИ ЦИФРЫ — НЕ ПРОСТО СТАТИСТИКА. ЭТО 900 ДНЕЙ БОРЬБЫ КАЖДОГО ВЫЖИВШЕГО</p>
+                <div class="memorial-line"></div>
+                <p class="signature">Материал подготовлен на основе отчётов городской комиссии, данных ЗАГС и военных архивов</p>
+            </div>
+        </main>
+</body>
+</html>
